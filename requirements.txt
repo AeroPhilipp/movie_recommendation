@@ -13,3 +13,7 @@ uvicorn         # web server
 # tests
 httpx           # HTTP client
 pytest-asyncio  # asynchronous I/O support for pytest
+
+colorama        # colored terminal output
+pytest-asyncio  # asynchronous I/O support for pytest
+python-multipart
