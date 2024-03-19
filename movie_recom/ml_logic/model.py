@@ -5,6 +5,11 @@ from movie_recom.params import *
 from sklearn.metrics.pairwise import cosine_similarity
 from movie_recom.ml_logic.preprocessor import create_input_NN
 
+# von chris
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+import tensorflow as tf
+
 ####################################
 ###     COSINE SIMILIRATY        ###
 ####################################
@@ -23,7 +28,8 @@ def vector_cosine(user_tf_idf_vector):
 
 def predict_NN(prompt_embedded):
     # Load model
-    file_path = os.path.join(PARENT_FOLDER_PATH, "saved_models", "NN_model.pkl")
+    #file_path = os.path.join(PARENT_FOLDER_PATH, "saved_models", "NN_model.pkl") #ross
+    file_path = os.path.join(PARENT_FOLDER_PATH, "saved_models", "model_whole_plot.pkl") #philipp
     neural_network = pickle.load(open(file_path, 'rb'))
 
     # Create input

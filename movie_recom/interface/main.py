@@ -45,7 +45,7 @@ def find_recommendation_vector(text):
     return vector_cosine(vectorized_prompt)
 
 
-def predict_movie(prompt: str = 'drug addict getting his life back on track', fav_list: list=[], weight_n: float=0.5, weight_fav: float=0.5) -> list:
+def predict_movie(prompt: str = 'drug addict getting his life back on track', fav_list: list=[], weight_n: float=1.0, weight_fav: float=0.5) -> list:
 
 
     '''

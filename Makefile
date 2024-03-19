@@ -16,9 +16,6 @@ prediction:
 run_api:
 	uvicorn movie_recom.api.fast:app --reload
 
-call_api:
-	python -c 'from movie_recom.interface.main import call_api; call_api()'
-
 run_all:
 	prediction
 
