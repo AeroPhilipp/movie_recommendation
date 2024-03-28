@@ -75,7 +75,7 @@ def predict_also_liked_movies(prompt: str = 'drug addict getting his life back o
     # 'Sgt. Bilko',
     # 'Striptease',
     # 'Renaissance Man']
-    # recommend with cosine similarity
+    # recommend with NMF
     recom_list =  get_also_liked(fav_list)
 
     print(recom_list[:10])

@@ -18,27 +18,34 @@ from sklearn.neighbors import NearestNeighbors #new
 from sklearn.metrics.pairwise import cosine_similarity
 
 def vector_cosine(user_tf_idf_vector):
+    ## check if movies are in movies keep
+    filepath_matrix = Path(PARENT_FOLDER_PATH).joinpath('processed_data/movies_user_behaviour_NMF_100c_wtitle.pkl')
+    movies_NMF = pd.read_pickle(filepath_matrix)
+    # get list of idices
+    movies_keep = movies_NMF.index.tolist()
+
     filepath_matrix = Path(PARENT_FOLDER_PATH).joinpath('processed_data/vectorized_summaries.pkl')
     tf_idf_matrix = pd.read_pickle(filepath_matrix)
     filepath_title = Path(PARENT_FOLDER_PATH).joinpath("raw_data/movie_title.pkl")
     titles = pd.read_pickle(filepath_title)
     cos_similarities = cosine_similarity(user_tf_idf_vector, tf_idf_matrix).flatten()
     similar_movies = pd.DataFrame({'title': titles.values, 'similarity': cos_similarities})
+    similar_movies = similar_movies[similar_movies['title'].isin(movies_keep)] # added by philipp to just keep good rated movies with are compatibel with users also liked
     similar_movies = similar_movies.sort_values(by='similarity', ascending=False)
     return similar_movies
 
-def predict_NN(prompt_embedded):
-    # Load model
-    #file_path = os.path.join(PARENT_FOLDER_PATH, "saved_models", "NN_model.pkl") #ross
-    file_path = os.path.join(PARENT_FOLDER_PATH, "saved_models", "model_whole_plot.pkl") #philipp
-    neural_network = pickle.load(open(file_path, 'rb'))
+# def predict_NN(prompt_embedded):
+#     # Load model
+#     #file_path = os.path.join(PARENT_FOLDER_PATH, "saved_models", "NN_model.pkl") #ross
+#     file_path = os.path.join(PARENT_FOLDER_PATH, "saved_models", "model_whole_plot.pkl") #philipp
+#     neural_network = pickle.load(open(file_path, 'rb'))
 
-    # Create input
-    X = create_input_NN(prompt_embedded)
+#     # Create input
+#     X = create_input_NN(prompt_embedded)
 
-    y_pred = neural_network.predict([X.iloc[:, 0:128], X.iloc[:, 128:]])
+#     y_pred = neural_network.predict([X.iloc[:, 0:128], X.iloc[:, 128:]])
 
-    return y_pred
+#     return y_pred
 
 def get_also_liked(fav_list: list):
     # get k neigbors for given movie

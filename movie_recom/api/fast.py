@@ -1,7 +1,7 @@
 import pandas as pd
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from movie_recom.interface.main import embed_prompt, merge_prompt_with_favorites, predict_text_similar_movies, predict_also_liked_movies
+from movie_recom.interface.main import predict_text_similar_movies, predict_also_liked_movies
 from pathlib import Path
 from movie_recom.params import *
 
