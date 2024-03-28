@@ -10,8 +10,11 @@ data_embedding_with_mini:
 fit_nearest_neighbors:
 	python -c 'from movie_recom.interface.main import fit_nearest_neighbors; fit_nearest_neighbors()'
 
-prediction:
-	python -c 'from movie_recom.interface.main import predict_movie; predict_movie()'
+text_similar_movies:
+	python -c 'from movie_recom.interface.main import predict_text_similar_movies; predict_text_similar_movies()'
+
+also_liked:
+	python -c 'from movie_recom.interface.main import predict_also_liked_movies; predict_also_liked_movies()'
 
 run_api:
 	uvicorn movie_recom.api.fast:app --reload

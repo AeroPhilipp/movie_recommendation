@@ -1,7 +1,7 @@
 import pandas as pd
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from movie_recom.interface.main import embed_prompt, merge_prompt_with_favorites, predict_movie
+from movie_recom.interface.main import embed_prompt, merge_prompt_with_favorites, predict_text_similar_movies, predict_also_liked_movies
 from pathlib import Path
 from movie_recom.params import *
 
@@ -29,7 +29,24 @@ def predict(
     """
     # generate output list
 
-    movie_list = predict_movie(prompt, fav_list.split("_"), float(weight_n), float(weight_fav))
+    movie_list = predict_text_similar_movies(prompt, fav_list.split("_"), float(weight_n), float(weight_fav))
+    # load list of titles
+
+    return {"Our recommendation is": movie_list}
+
+@app.get("/alsoliked")
+def alsoliked(
+        prompt: str,
+        fav_list,
+        weight_n: float,
+        weight_fav: float
+    ):
+    """
+    gives a list of n_recom recommendations based on favourits
+    """
+    # generate output list
+
+    movie_list = predict_also_liked_movies(prompt, fav_list.split("_"), float(weight_n), float(weight_fav))
     # load list of titles
 
     return {"Our recommendation is": movie_list}
